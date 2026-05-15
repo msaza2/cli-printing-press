@@ -1,0 +1,40 @@
+{
+  "name": "cli-printing-press",
+  "version": "4.6.1",
+  "description": "Generate production Go CLIs from API descriptions, websites, HAR captures, or OpenAPI specs through a Codex-native Printing Press skill.",
+  "author": {
+    "name": "mvanhorn"
+  },
+  "homepage": "https://github.com/msaza2/cli-printing-press",
+  "repository": "https://github.com/msaza2/cli-printing-press",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "codegen",
+    "openapi",
+    "go",
+    "api",
+    "codex",
+    "skills"
+  ],
+  "skills": "./codex-skills/",
+  "interface": {
+    "displayName": "CLI Printing Press",
+    "shortDescription": "Generate and polish agent-native Go CLIs",
+    "longDescription": "Use the Printing Press from Codex to research an API, generate a production Go CLI and MCP server, run verification gates, polish output, score generated CLIs, and publish library-ready artifacts.",
+    "developerName": "mvanhorn",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/msaza2/cli-printing-press",
+    "privacyPolicyURL": "https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "defaultPrompt": [
+      "Use $printing-press to generate, polish, score, or publish an agent-native CLI."
+    ],
+    "screenshots": [],
+    "brandColor": "#111827"
+  }
+}

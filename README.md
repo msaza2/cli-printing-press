@@ -20,13 +20,15 @@ Browse the full catalog of printed CLIs at [printingpress.dev](https://printingp
 
 **Cursor users:** see [docs/CURSOR.md](docs/CURSOR.md) for how to install a printed CLI, attach the matching skill, handle auth, and choose CLI vs MCP when your repo does not already document a workflow.
 
+**Codex users:** this fork also ships a Codex plugin manifest at [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json) and a Codex-native skill adapter at [`codex-skills/printing-press/SKILL.md`](codex-skills/printing-press/SKILL.md). The adapter maps the original Claude Code workflow onto Codex tools while reusing the detailed Printing Press phase contracts in [`skills/`](skills/).
+
 ## Install
 
-You need both the **binary** and the **Claude Code skills**. The skills (`/printing-press <app>`) are the primary interface; they drive the binary behind the scenes.
+You need both the **binary** and an **agent skill**. Claude Code uses the slash-command skills (`/printing-press <app>`). Codex uses the `$printing-press` skill adapter in [`codex-skills/`](codex-skills/). The skills are the primary interface; they drive the binary behind the scenes.
 
 The binary alone works (research, generation, verification, scoring) but skips the curated agent loop. The skills alone have nothing to call. Install both.
 
-**Prerequisites:** [Go 1.26.3 or newer](https://go.dev/dl/) and [Claude Code](https://claude.ai/code). The skills are tested with Claude Code; other harnesses like Codex may work but aren't tested. **Use Claude Code for the best experience.**
+**Prerequisites:** [Go 1.26.3 or newer](https://go.dev/dl/) and either [Claude Code](https://claude.ai/code) or Codex.
 
 ### 1. Install the binary
 
@@ -93,6 +95,18 @@ For example:
 ```
 
 `/printing-press` drives the `printing-press` binary you installed — research, generation, scoring, and shipcheck all run through it. Two parts, one workflow.
+
+### Codex skill usage
+
+For Codex, install or load this repo as a local plugin using the Codex manifest in `.codex-plugin/plugin.json`, then invoke:
+
+```text
+Use $printing-press to print a Notion CLI
+Use $printing-press to polish ~/printing-press/library/notion
+Use $printing-press to score notion vs stripe
+```
+
+The Codex adapter is intentionally small. It handles host-specific tool mapping, setup, and verification rules, then tells Codex when to consult the original detailed skill files under `skills/`.
 
 One command. Lean loop. Produces a Go CLI plus an MCP server that absorbs every feature from every competing tool, then transcends with compound use cases only possible with local data. REST, GraphQL, or browser-sniffed traffic. No OpenAPI spec required.
 

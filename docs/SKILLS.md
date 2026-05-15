@@ -1,6 +1,12 @@
 # Skill Authoring
 
-Conventions for the skills shipped from this repo (under `skills/`) and any internal skills under `.claude/skills/`. Loaded on-demand when working on skill content; not needed on every interaction.
+Conventions for the skills shipped from this repo (under `skills/`) and Codex adapters under `codex-skills/`. Loaded on-demand when working on skill content; not needed on every interaction.
+
+## Codex Adapters
+
+Codex adapters should stay thin. Put host-specific setup, tool mapping, and verification expectations in `codex-skills/`; keep canonical phase order, product judgment, source workflow details, and Printing Press terminology in `skills/`.
+
+When a Codex adapter needs detailed instructions, point it to the corresponding source skill under `skills/` and explicitly describe how to translate Claude Code tool names to Codex tools. Do not duplicate large workflow sections into the adapter; duplicated phase prose drifts quickly.
 
 ## Workflow Parity
 

@@ -70,7 +70,8 @@ When adding a new deterministic CLI behavior or generated artifact contract, exp
 - `internal/generator/` - Template engine + quality gates
 - `internal/catalog/` - Catalog schema validator
 - `catalog/` - API catalog entries (YAML) + Go embed package (`catalog.FS`). Adding a YAML file here requires rebuilding the binary
-- `skills/` - Claude Code skill definitions
+- `skills/` - Claude Code skill definitions and source workflow contracts
+- `codex-skills/` - Codex-native skill adapters that map the source workflows to Codex tools
 - `testdata/` - Test fixtures (internal + OpenAPI specs)
 - `docs/PIPELINE.md` - Portable contract for the 9-phase generation pipeline. Update it when `internal/pipeline/state.go` or `internal/pipeline/seeds.go` changes
 - `docs/SPEC-EXTENSIONS.md` - Canonical reference for Printing Press-specific OpenAPI `x-*` extensions. Update it when `internal/openapi/parser.go` adds or changes an `Extensions["x-*"]` lookup
@@ -192,7 +193,8 @@ Why this matters: the publish skill enforces preflight checks (printer sentinel 
 If `/printing-press-publish` fails, fix the underlying issue (or report it as a machine bug) — do not bypass the skill to land a CLI-publish PR.
 
 ## Internal Skills
-`.claude/skills/` contains internal skills for developing the Printing Press itself (for example `printing-press-retro`). These load automatically when Claude Code is started from inside this repo.
+`skills/` contains the source Printing Press workflows, and `codex-skills/` contains Codex-native adapters that consult those workflows with Codex tool mappings. Keep the adapter small: host-specific setup, tool mapping, and verification rules belong there; phase contracts belong in the source workflow under `skills/`.
+
 If you are running Claude Code from a different directory and need these skills available, install them globally:
 ```bash
 .claude/scripts/install-internal-skills.sh

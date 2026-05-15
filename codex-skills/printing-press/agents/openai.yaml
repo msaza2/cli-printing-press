@@ -1,0 +1,4 @@
+interface:
+  display_name: "Printing Press"
+  short_description: "Generate and polish agent-native Go CLIs"
+  default_prompt: "Use $printing-press to generate, polish, score, or publish an agent-native CLI with the Printing Press."
