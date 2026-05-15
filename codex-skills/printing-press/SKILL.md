@@ -97,17 +97,51 @@ For a new CLI request:
 1. Run setup and record the resolved binary path.
 2. Determine the input shape: API name, website URL, OpenAPI path/URL, HAR file,
    or existing catalog entry.
-3. Use the main source workflow for research, spec discovery, sniffing decisions,
+3. If the user did not provide enough machine-readable input, acquire it
+   yourself before asking them for artifacts: run the target workflow manually
+   with available browser or local automation tools, capture network details,
+   save sanitized HAR/network summaries when useful, and extract the real
+   endpoints, methods, payloads, headers, response shapes, downloads, and auth
+   handoff requirements that the CLI must reproduce.
+4. Use the main source workflow for research, spec discovery, sniffing decisions,
    absorb/transcendence review, generation, build, shipcheck, and optional live
    smoke testing.
-4. Keep generated artifacts under the Printing Press runstate/library paths that
+5. Keep generated artifacts under the Printing Press runstate/library paths that
    the source workflow defines.
-5. After generation, run the highest-value available checks from the source
+6. After generation, run the highest-value available checks from the source
    workflow before reporting status.
 
 When the source workflow mentions "Codex mode", treat this Codex session as the
 active implementation host. Do not invoke `codex exec` from inside Codex unless
 the user explicitly asks for nested CLI delegation.
+
+## Agent-Acquired Evidence
+
+Prefer producing a working CLI from observed behavior over waiting for the user
+to hand you perfect API artifacts. When a target API is browser-backed,
+undocumented, private, or only partially described by public docs:
+
+1. Drive the approved target workflow yourself when credentials and user
+   authorization are already available. Stay within the user's stated scope.
+2. Capture the network evidence needed to understand the workflow. Use HAR,
+   browser devtools output, app logs, local proxies, downloaded files, and
+   response snapshots as appropriate for the environment.
+3. Sanitize captures before storing or discussing them. Remove cookies, bearer
+   tokens, passwords, OTPs, personally identifying query values, and any raw
+   secret headers. Keep enough structure to preserve method, URL path, payload
+   shape, status, content type, and response schema.
+4. Convert the observed workflow into CLI behavior: model real endpoints and
+   payloads, add flags for values likely to drift, use captured defaults only
+   when they are necessary and clearly scoped, and preserve any browser-based
+   auth or human-in-the-loop step as an auth bootstrap rather than bypassing it.
+5. Test the CLI against a local fake server that asserts the observed request
+   sequence, then run a live smoke test when authorized. Compare downloaded
+   artifacts against the browser result when possible, including field counts,
+   headers, row counts, and parser compatibility.
+
+Do not ask the user to manually export a HAR, inspect browser requests, or paste
+network payloads unless local capture is blocked, unsafe, outside the approved
+scope, or requires a credential or human decision only the user can provide.
 
 ## Editing And Verification
 
