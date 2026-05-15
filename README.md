@@ -100,6 +100,13 @@ For example:
 
 For Codex, install or load this repo as a local plugin using the Codex manifest in `.codex-plugin/plugin.json`, then invoke:
 
+```bash
+codex plugin marketplace add https://github.com/msaza2/cli-printing-press.git
+codex plugin marketplace upgrade cli-printing-press
+```
+
+Then enable the `CLI Printing Press` plugin in Codex and invoke:
+
 ```text
 Use $printing-press to print a Notion CLI
 Use $printing-press to polish ~/printing-press/library/notion
